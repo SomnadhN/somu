@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y git
 
 # Clone the Git repository containing the JAR file (replace URL with your repository's URL)
-RUN git clone https://github.com/ShravanJanwade/Pro-Collab-Application.git /app
+RUN git clone https://github.com/subhisuresh17/Pro-Collab-Application-latest.git
 
 # Switch to the master branch (optional, only if the JAR file is in a specific branch)
 RUN git checkout master
