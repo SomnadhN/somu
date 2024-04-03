@@ -23,7 +23,7 @@ RUN git checkout master
 
 # Copy the JAR file from the cloned repository to the container
 WORKDIR /app
-COPY Pro-Collab-Application-latest/ProCollab-0.0.1-SNAPSHOT.jar /app/ProCollab.jar
+COPY /pro-collab-jar /app/ProCollab.jar
 
 # Expose the port that your Spring Boot application listens on
 EXPOSE 1111
