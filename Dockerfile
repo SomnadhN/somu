@@ -14,7 +14,6 @@ WORKDIR /app
 RUN apt-get install -y openjdk-17-jdk git
 
 # Clone the Git repository containing the JAR file
-# Clone the Git repository containing the JAR file (master branch)
 RUN git clone -b master https://github.com/subhisuresh17/Pro-Collab-Application-latest.git
 
 # Switch to the master branch (optional, only if the JAR file is in a specific branch)
@@ -22,8 +21,8 @@ WORKDIR /app/Pro-Collab-Application-latest
 RUN git checkout master
 
 # Copy the JAR file from the cloned repository to the container
-WORKDIR /app
-COPY /pro-collab-jar /app/ProCollab.jar
+WORKDIR /app/Pro-Collab-Application-latest
+COPY target/ProCollab-0.0.1-SNAPSHOT.jar /app/ProCollab.jar
 
 # Expose the port that your Spring Boot application listens on
 EXPOSE 1111
