@@ -18,8 +18,19 @@ pipeline {
                 git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
             }
         }
+        stage('Build Project') {
+            steps {
+                // Change directory to the cloned repository and build the project with Maven
+                dir('Pro-Collab-Application-latest') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
         stage('Build Docker Image') {
             steps {
+                // Copy the generated JAR file to the Docker build context
+                sh 'cp Pro-Collab-Application-latest/target/ProCollab-0.0.1-SNAPSHOT.jar .'
+
                 // Build Docker image using Dockerfile
                 sh 'sudo docker build -t $DOCKER_IMAGE_NAME .'
             }
