@@ -1,11 +1,11 @@
-# Use a base image with OpenJDK 17 installed
-FROM openjdk:17
+# Use a base image with ubuntu
+FROM ubuntu:20.04
 
 # Set the working directory inside the container
 WORKDIR /app
 
 # Install Git to fetch the JAR file
-RUN apt-get update -y && apt-get install -y git
+RUN apt-get update  && apt-get install -y openjdk-17-jdk git
 
 # Clone the Git repository containing the JAR file (replace URL with your repository's URL)
 RUN git clone https://github.com/subhisuresh17/Pro-Collab-Application-latest.git
