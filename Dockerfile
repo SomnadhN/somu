@@ -14,7 +14,8 @@ WORKDIR /app
 RUN apt-get install -y openjdk-17-jdk git
 
 # Clone the Git repository containing the JAR file
-RUN git clone https://github.com/subhisuresh17/Pro-Collab-Application-latest.git
+# Clone the Git repository containing the JAR file (master branch)
+RUN git clone -b master https://github.com/subhisuresh17/Pro-Collab-Application-latest.git
 
 # Switch to the master branch (optional, only if the JAR file is in a specific branch)
 WORKDIR /app/Pro-Collab-Application-latest
