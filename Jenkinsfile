@@ -12,10 +12,12 @@ pipeline {
     }
     
     stages {
-        stage('Checkout Git Repository') {
+        stage('Clone Git Repository') {
             steps {
-                // Check out the Git repository using credentialsId
-                git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
+                // Clone the Git repository using credentialsId
+                dir('Pro-Collab-Application-latest') {
+                    git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
+                }
             }
         }
         stage('Build Project') {
