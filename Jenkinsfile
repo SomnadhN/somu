@@ -27,7 +27,7 @@ pipeline {
         stage('Run Container') {
             steps {
                 // Run the container and map ports
-                sh 'docker run -p 90:1111 -d $DOCKER_IMAGE_NAME'
+                sh 'docker run -p 1111:1111 -d $DOCKER_IMAGE_NAME'
             }
         }
         stage('Push to Docker Hub') {
