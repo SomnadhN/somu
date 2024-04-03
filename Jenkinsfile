@@ -37,10 +37,10 @@ pipeline {
                 sh 'sudo docker build -t $DOCKER_IMAGE_NAME .'
             }
         }
-        stage('Run Container') {
+        stage('docker-compose container') {
             steps {
                 // Run the container and map ports
-                sh 'sudo docker run -p 1111:1111 -d $DOCKER_IMAGE_NAME'
+                sh 'sudo docker-compose up -d '
             }
         }
         stage('Push to Docker Hub') {
