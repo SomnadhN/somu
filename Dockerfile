@@ -1,6 +1,7 @@
 # Use a base image with ubuntu
 FROM ubuntu:20.04
-
+# Set the timezone environment variable
+ENV TZ=Asia/Kolkata
 # Set the working directory inside the container
 WORKDIR /app
 
