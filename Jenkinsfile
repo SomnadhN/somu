@@ -18,7 +18,16 @@ pipeline {
                 git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
             }
         }
-      
+
+         stage('Build Project') {
+            steps {
+                // Change directory to the cloned repository and build the project with Maven
+                dir('Pro-Collab-Application-latest') {
+                    sh 'mvn clean package'
+                }
+            }
+        }
+     
         stage('docker-compose down') {
             steps {
                 // Run docker-compose down to stop any existing containers
