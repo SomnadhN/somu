@@ -18,14 +18,7 @@ pipeline {
                 git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                // Change directory to the cloned repository and build the Docker image
-                dir('Pro-Collab-Application-latest') {
-                    sh 'sudo docker build -t $DOCKER_IMAGE_NAME .'
-                }
-            }
-        }
+      
         stage('docker-compose down') {
             steps {
                 // Run docker-compose down to stop any existing containers
