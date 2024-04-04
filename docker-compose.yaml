@@ -16,7 +16,6 @@ services:
   spring-boot-app:
     build:
       context: .
-      dockerfile: Dockerfile
     ports:
       - "1111:1111"
     depends_on:
