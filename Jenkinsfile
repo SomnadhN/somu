@@ -9,7 +9,7 @@ pipeline {
         GIT_PASSWORD = 'Love170801*'
         GIT_REPO_URL = 'https://github.com/subhisuresh17/Pro-Collab-Application-latest.git'
         GIT_CREDENTIALS_ID = 'github-token'
-        CLONE_LOCATION = '/home/ubuntu'
+     
     }
     
     stages {
@@ -24,7 +24,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 // Change directory to the cloned repository and build the project with Maven
-                dir(CLONE_LOCATION + '/Pro-Collab-Application-latest') {
+                dir('/Pro-Collab-Application-latest') {
                     sh 'mvn clean package'
                 }
             }
