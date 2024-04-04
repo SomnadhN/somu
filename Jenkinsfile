@@ -1,15 +1,10 @@
 pipeline {
     agent any
-
-    tools {
-        // Use the Maven installation named "Maven 3.8.1"
-        maven 'maven 3.9.6'
-    }
-
+    
     environment {
         DOCKER_HUB_USERNAME = 'subhikshasuresh1701'
         DOCKER_HUB_PASSWORD = 'Love170801'
-        DOCKER_IMAGE_NAME = 'pro-collab-application'
+        DOCKER_IMAGE_NAME = 'pro-collab-app'
         GIT_USERNAME = 'subhisuresh17'
         GIT_PASSWORD = 'Love170801*'
         GIT_REPO_URL = 'https://github.com/subhisuresh17/Pro-Collab-Application-latest.git'
@@ -23,25 +18,24 @@ pipeline {
                 git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
             }
         }
-        stage('Build Project') {
+        stage('Build Docker Image') {
             steps {
-                // Change directory to the cloned repository and build the project with Maven
+                // Change directory to the cloned repository and build the Docker image
                 dir('Pro-Collab-Application-latest') {
-                    sh 'mvn clean package'
+                    sh 'sudo docker build -t $DOCKER_IMAGE_NAME .'
                 }
             }
         }
-
-        stage('docker-compose down - old') {
+        stage('docker-compose down') {
             steps {
-                // Run the container and map ports
-                sh 'sudo docker-compose down '
+                // Run docker-compose down to stop any existing containers
+                sh 'sudo docker-compose down'
             }
         }
-        stage('docker-compose container') {
+        stage('docker-compose up') {
             steps {
-                // Run the container and map ports
-                sh 'sudo docker-compose up -d '
+                // Run docker-compose up to create and start containers
+                sh 'sudo docker-compose up -d'
             }
         }
         stage('Push to Docker Hub') {
