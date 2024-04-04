@@ -37,6 +37,13 @@ pipeline {
                 sh 'sudo docker build -t $DOCKER_IMAGE_NAME .'
             }
         }
+
+        stage('docker-compose down - old') {
+            steps {
+                // Run the container and map ports
+                sh 'sudo docker-compose down '
+            }
+        }
         stage('docker-compose container') {
             steps {
                 // Run the container and map ports
