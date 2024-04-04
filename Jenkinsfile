@@ -32,8 +32,6 @@ pipeline {
             steps {
                 // Copy the generated JAR file to the Docker build context
                 sh 'cp Pro-Collab-Application-latest/target/ProCollab-0.0.1-SNAPSHOT.jar .'
-                // Build Docker image using Dockerfile
-                sh 'sudo docker build -t $DOCKER_IMAGE_NAME .'
             }
         }
         stage('docker-compose container') {
