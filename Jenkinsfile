@@ -4,45 +4,44 @@ pipeline {
     environment {
         DOCKER_HUB_USERNAME = 'subhikshasuresh1701'
         DOCKER_HUB_PASSWORD = 'Love170801'
-        DOCKER_IMAGE_NAME = 'pro-collab-app'
+        DOCKER_IMAGE_NAME = 'pro-collab-application'
         GIT_USERNAME = 'subhisuresh17'
         GIT_PASSWORD = 'Love170801*'
         GIT_REPO_URL = 'https://github.com/subhisuresh17/Pro-Collab-Application-latest.git'
         GIT_CREDENTIALS_ID = 'github-token'
-        PROJECT_DIR = '/var/lib/jenkins/workspace/Pro-collab-test/Pro-Collab-Application-latest'
     }
     
     stages {
         stage('Clone Git Repository') {
             steps {
                 // Clone the Git repository using credentialsId
-                git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
+                dir('Pro-Collab-Application-latest') {
+                    git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
+                }
             }
         }
-
         stage('Build Project') {
             steps {
                 // Change directory to the cloned repository and build the project with Maven
-                dir("${PROJECT_DIR}") {
+                dir('Pro-Collab-Application-latest') {
                     sh 'mvn clean package'
                 }
             }
         }
-     
-        stage('docker-compose down') {
+        stage('Build Docker Image') {
             steps {
-                // Run docker-compose down to stop any existing containers
-                sh 'sudo docker-compose down'
+                // Copy the generated JAR file to the Docker build context
+                sh 'cp Pro-Collab-Application-latest/target/ProCollab-0.0.1-SNAPSHOT.jar .'
+                // Build Docker image using Dockerfile
+                sh 'sudo docker build -t $DOCKER_IMAGE_NAME .'
             }
         }
-
-        stage('docker-compose up') {
+        stage('docker-compose container') {
             steps {
-                // Run docker-compose up to create and start containers
-                sh 'sudo docker-compose up -d'
+                // Run the container and map ports
+                sh 'sudo docker-compose up -d '
             }
         }
-
         stage('Push to Docker Hub') {
             steps {
                 // Log in to Docker Hub and push the image
