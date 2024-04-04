@@ -1,6 +1,11 @@
 pipeline {
     agent any
-    
+
+    tools {
+        // Use the Maven installation named "Maven 3.8.1"
+        maven 'Maven 3.8.1'
+    }
+
     environment {
         DOCKER_HUB_USERNAME = 'subhikshasuresh1701'
         DOCKER_HUB_PASSWORD = 'Love170801'
@@ -21,7 +26,7 @@ pipeline {
         stage('Build Project') {
             steps {
                 // Change directory to the cloned repository and build the project with Maven
-                dir('/Pro-Collab-Application-latest') {
+                dir('Pro-Collab-Application-latest') {
                     sh 'mvn clean package'
                 }
             }
