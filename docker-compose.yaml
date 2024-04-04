@@ -1,32 +1,35 @@
 version: '3.8'
- 
+
 services:
-  spring-boot-app:
-    build: .
-    ports:
-      - "1111:1111"
-    depends_on:
-      - mysql
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/Pro-collab-db?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - SERVER_PORT=1111
- 
   mysql:
     image: mysql:latest
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: Pro-collab-db
+      MYSQL_DATABASE: my_database
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
- 
+
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "1111:1111"
+    depends_on:
+      - mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/my_database?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=update
+      - SERVER_PORT=1111
+      - APPLICATION_BASE_URL=http://18.171.95.247:1111
+
 volumes:
   mysql_data:
