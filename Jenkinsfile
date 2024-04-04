@@ -21,7 +21,8 @@ pipeline {
         stage('Build Project') {
             steps {
                 // Change directory to the cloned repository and build the project with Maven
-                dir('/Pro-Collab-Application-latest') {
+                dir('Pro-Collab-Application-latest') {
+                    // Build the project with Maven
                     sh 'mvn clean package'
                 }
             }
@@ -29,14 +30,20 @@ pipeline {
 
         stage('docker-compose down - old') {
             steps {
-                // Run the container and map ports
-                sh 'sudo docker-compose down '
+                // Change directory to where docker-compose file is located
+                dir('Pro-Collab-Application-latest') {
+                    // Run docker-compose down
+                    sh 'sudo docker-compose down '
+                }
             }
         }
         stage('docker-compose container') {
             steps {
-                // Run the container and map ports
-                sh 'sudo docker-compose up -d '
+                // Change directory to where docker-compose file is located
+                dir('Pro-Collab-Application-latest') {
+                    // Run docker-compose up
+                    sh 'sudo docker-compose up -d '
+                }
             }
         }
         stage('Push to Docker Hub') {
