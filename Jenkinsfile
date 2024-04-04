@@ -9,16 +9,13 @@ pipeline {
         GIT_PASSWORD = 'Love170801*'
         GIT_REPO_URL = 'https://github.com/subhisuresh17/Pro-Collab-Application-latest.git'
         GIT_CREDENTIALS_ID = 'github-token'
-     
     }
     
     stages {
         stage('Clone Git Repository') {
             steps {
                 // Clone the Git repository using credentialsId
-                dir(CLONE_LOCATION) {
-                    git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
-                }
+                git credentialsId: GIT_CREDENTIALS_ID, url: GIT_REPO_URL, branch: 'main'
             }
         }
         stage('Build Project') {
