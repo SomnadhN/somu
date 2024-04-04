@@ -1,8 +1,10 @@
 version: '3.8'
- 
+
 services:
   spring-boot-app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "1111:1111"
     depends_on:
@@ -16,7 +18,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL-AUTO=update
       - SERVER_PORT=1111
       - APPLICATION_BASE_URL=http://13.43.51.35:1111
- 
+
   mysql:
     image: mysql:latest
     restart: always
@@ -28,6 +30,6 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
- 
+
 volumes:
   mysql_data:
