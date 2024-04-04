@@ -40,7 +40,7 @@ pipeline {
         stage('compose - Container') {
             steps {
                 // Run the container and map ports
-                sh 'sudo docer-compose up -d'
+                sh 'sudo docker-compose up -d'
             }
         }
         stage('Push to Docker Hub') {
