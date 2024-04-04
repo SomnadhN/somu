@@ -8,7 +8,7 @@ services:
     depends_on:
       - mysql
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/MY_Capstone_project1?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/Pro-collab-db?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
@@ -21,10 +21,10 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: MY_Capstone_project1
+      MYSQL_DATABASE: Pro-collab-db
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     ports:
-      - "3706:3306"
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
  
