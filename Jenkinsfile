@@ -11,6 +11,11 @@ pipeline {
         GIT_CREDENTIALS_ID = 'github-token'
     }
     
+    options {
+        // Clean workspace before each build
+        deleteDir()
+    }
+    
     stages {
         stage('Clone Git Repository') {
             steps {
