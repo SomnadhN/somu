@@ -9,6 +9,7 @@ pipeline {
         GIT_PASSWORD = 'Love170801*'
         GIT_REPO_URL = 'https://github.com/subhisuresh17/Pro-Collab-Application-latest.git'
         GIT_CREDENTIALS_ID = 'github-token'
+        PROJECT_DIR = '/var/lib/jenkins/workspace/Pro-collab-test/Pro-Collab-Application-latest'
     }
     
     stages {
@@ -19,10 +20,10 @@ pipeline {
             }
         }
 
-         stage('Build Project') {
+        stage('Build Project') {
             steps {
                 // Change directory to the cloned repository and build the project with Maven
-                dir('Pro-Collab-Application-latest') {
+                dir("${PROJECT_DIR}") {
                     sh 'mvn clean package'
                 }
             }
@@ -34,12 +35,14 @@ pipeline {
                 sh 'sudo docker-compose down'
             }
         }
+
         stage('docker-compose up') {
             steps {
                 // Run docker-compose up to create and start containers
                 sh 'sudo docker-compose up -d'
             }
         }
+
         stage('Push to Docker Hub') {
             steps {
                 // Log in to Docker Hub and push the image
