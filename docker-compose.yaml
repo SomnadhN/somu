@@ -9,7 +9,7 @@ services:
       MYSQL_DATABASE: my_database
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     ports:
-      - "3308:3306"  # Host port : Container port
+      - "3307:3306"  # Host port : Container port
 
   spring-boot-app:
     build:
