@@ -31,24 +31,24 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 // Copy the generated JAR file to the Docker build context
-                sh 'cp Pro-Collab-Application-latest/target/ProCollab-0.0.1-SNAPSHOT.jar .'
+                sh 'cp target/ProCollab-0.0.1-SNAPSHOT.jar .'
 
                 // Build Docker image using Dockerfile
-                sh 'sudo docker build -t $DOCKER_IMAGE_NAME .'
+                sh 'docker build -t $DOCKER_IMAGE_NAME .'
             }
         }
-        stage('compose - Container') {
+        stage('Compose - Container') {
             steps {
-                // Run the container and map ports
-                sh 'sudo docker-compose up -d'
+                // Run the container and map ports using docker-compose
+                sh 'docker-compose up -d'
             }
         }
         stage('Push to Docker Hub') {
             steps {
                 // Log in to Docker Hub and push the image
-                sh "sudo docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
-                sh "sudo docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_USERNAME/$DOCKER_IMAGE_NAME"
-                sh "sudo docker push $DOCKER_HUB_USERNAME/$DOCKER_IMAGE_NAME"
+                sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
+                sh "docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_USERNAME/$DOCKER_IMAGE_NAME"
+                sh "docker push $DOCKER_HUB_USERNAME/$DOCKER_IMAGE_NAME"
             }
         }
     }
