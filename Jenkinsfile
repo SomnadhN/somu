@@ -28,14 +28,7 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Containers') {
-            steps {
-                // Change directory to the location of docker-compose.yml and run docker-compose build
-                dir('Pro-Collab-Application-latest') {
-                    sh 'docker-compose build'
-                }
-            }
-        }
+      
         stage('Start Docker Containers') {
             steps {
                 // Change directory to the location of docker-compose.yml and run docker-compose up -d
