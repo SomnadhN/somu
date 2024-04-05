@@ -33,7 +33,7 @@ pipeline {
             steps {
                 // Change directory to the location of docker-compose.yml and run docker-compose up -d
                 dir('Pro-Collab-Application-latest') {
-                    sh 'docker-compose up -d'
+                    sh 'sudo docker-compose up -d'
                 }
             }
         }
