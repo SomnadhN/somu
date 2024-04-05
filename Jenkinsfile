@@ -5,7 +5,7 @@ pipeline {
         DOCKER_HUB_USERNAME = 'subhikshasuresh1701'
         DOCKER_HUB_PASSWORD = 'Love170801'
         DOCKER_IMAGE_NAME = 'pro-collab-application'
-        GIT_USERNAME = 'subhisuresh17'
+        GIT_USERNAME = 'subhisures17'
         GIT_PASSWORD = 'Love170801*'
         GIT_REPO_URL = 'https://github.com/subhisuresh17/Pro-Collab-Application-latest.git'
         GIT_CREDENTIALS_ID = 'github-token'
@@ -30,14 +30,18 @@ pipeline {
         }
         stage('Build Docker Containers') {
             steps {
-                // Run docker-compose to build the containers defined in docker-compose.yml
-                sh 'docker-compose build'
+                // Change directory to the location of docker-compose.yml and run docker-compose build
+                dir('Pro-Collab-Application-latest') {
+                    sh 'docker-compose build'
+                }
             }
         }
         stage('Start Docker Containers') {
             steps {
-                // Run docker-compose to start the containers in detached mode (-d)
-                sh 'docker-compose up -d'
+                // Change directory to the location of docker-compose.yml and run docker-compose up -d
+                dir('Pro-Collab-Application-latest') {
+                    sh 'docker-compose up -d'
+                }
             }
         }
         stage('Push to Docker Hub') {
