@@ -28,12 +28,6 @@ pipeline {
                 }
             }
         }
-        stage('Stop and Remove Existing Container') {
-            steps {
-                // Stop and remove the existing container
-                sh 'docker-compose down'
-            }
-        }
         stage('Build Docker Image') {
             steps {
                 // Copy the generated JAR file to the Docker build context
@@ -41,6 +35,11 @@ pipeline {
 
                 // Build Docker image using Dockerfile
                 sh 'docker build -t $DOCKER_IMAGE_NAME .'
+            }
+        }
+        stage('Stop and Remove Existing Containers') {
+            steps {
+                sh 'docker-compose down -d'
             }
         }
         stage('Compose - Container') {
