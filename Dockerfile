@@ -16,6 +16,7 @@ WORKDIR /app
 # Copy the JAR file from the cloned repository to the container
 COPY target/ProCollab-0.0.1-SNAPSHOT.jar /app/ProCollab.jar
 
+
 # Expose the port that your Spring Boot application listens on
 EXPOSE 1111
 
