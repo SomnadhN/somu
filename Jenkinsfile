@@ -40,9 +40,9 @@ pipeline {
         stage('Push to Docker Hub') {
             steps {
                 // Log in to Docker Hub and push the image
-                sh "docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
-                sh "docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_USERNAME/$DOCKER_IMAGE_NAME"
-                sh "docker push $DOCKER_HUB_USERNAME/$DOCKER_IMAGE_NAME"
+                sh "sudo docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD"
+                sh "sudo docker tag $DOCKER_IMAGE_NAME $DOCKER_HUB_USERNAME/$DOCKER_IMAGE_NAME"
+                sh "sudo docker push $DOCKER_HUB_USERNAME/$DOCKER_IMAGE_NAME"
             }
         }
     }
