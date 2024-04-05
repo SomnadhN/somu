@@ -28,23 +28,15 @@ pipeline {
                 }
             }
         }
-        // stage('Build Docker Image') {
-        //     steps {
-        //         // Copy the generated JAR file to the Docker build context
-        //         sh 'cp target/ProCollab-0.0.1-SNAPSHOT.jar .'
-
-        //         // Build Docker image using Dockerfile
-        //         sh 'docker build -t $DOCKER_IMAGE_NAME .'
-        //     }
-        // }
-        stage('Stop and Remove Existing Containers') {
+        stage('Build Docker Containers') {
             steps {
-                sh 'docker-compose down -d'
+                // Run docker-compose to build the containers defined in docker-compose.yml
+                sh 'docker-compose build'
             }
         }
-        stage('Compose - Container') {
+        stage('Start Docker Containers') {
             steps {
-                // Run the container and map ports using docker-compose
+                // Run docker-compose to start the containers in detached mode (-d)
                 sh 'docker-compose up -d'
             }
         }
