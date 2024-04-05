@@ -10,8 +10,6 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     ports:
       - "3306:3306"
-     depends_on:
-          - springboot-boot-app
     volumes:
       - mysql_data:/var/lib/mysql
 
