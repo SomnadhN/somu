@@ -28,15 +28,15 @@ pipeline {
                 }
             }
         }
-        stage('Build Docker Image') {
-            steps {
-                // Copy the generated JAR file to the Docker build context
-                sh 'cp target/ProCollab-0.0.1-SNAPSHOT.jar .'
+        // stage('Build Docker Image') {
+        //     steps {
+        //         // Copy the generated JAR file to the Docker build context
+        //         sh 'cp target/ProCollab-0.0.1-SNAPSHOT.jar .'
 
-                // Build Docker image using Dockerfile
-                sh 'docker build -t $DOCKER_IMAGE_NAME .'
-            }
-        }
+        //         // Build Docker image using Dockerfile
+        //         sh 'docker build -t $DOCKER_IMAGE_NAME .'
+        //     }
+        // }
         stage('Stop and Remove Existing Containers') {
             steps {
                 sh 'docker-compose down -d'
