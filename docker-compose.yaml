@@ -1,16 +1,6 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:latest
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: my_database
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    ports:
-      - "3306:3306"  # Host port : Container port
-
   spring-boot-app:
     build:
       context: .
@@ -19,14 +9,28 @@ services:
     depends_on:
       - mysql
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/my_database?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.cj.jdbc.Driver
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
-      - SPRING_JPA_HIBERNATE_DDL-AUTO=update
-      - SERVER_PORT=1111
-      - APPLICATION_BASE_URL=http://18.171.95.247:1111
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/my_database?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+      SERVER_PORT: 1111
+      APPLICATION_BASE_URL: http://18.171.95.247:1111
+    restart: always
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    ports:
+      - "3306:3306"  # Host port : Container port
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
 
 volumes:
   mysql_data:
