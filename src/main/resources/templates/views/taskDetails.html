@@ -16,6 +16,7 @@
     </header>
     <div class="container">
         <h1 class="heading">Task Details</h1>
+       
         <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{'/task/edit/' + ${task.id}}">
             <span class="edit-button">Edit</span>
         </a>
@@ -45,8 +46,15 @@
             </p>
             
                         <a  th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{'/assignment/project/' + ${task.project.id} + '/task/' + ${task.id}}">Assign Task</a>
-            <span class="complete">Mark as Completed</span>
+            <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="complete">Mark as Completed</span>
             <form th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="complete-form" th:action="@{/task/taskDetails/{projectId}/mark-done/{taskId}(projectId=${task.project.id},taskId=${task.id})}" method="post">
+                <label class="complete-label">
+                    <input type="checkbox" name="completed" class="complete-checkbox" th:checked="${task.completed}" onchange="this.form.submit()">
+                    
+                </label>
+            </form>
+            <span th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" class="complete" style="margin-left: 40px;">Mark as Completed</span>
+            <form th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" class="complete-form" th:action="@{/task/taskDetails/{projectId}/mark-done/{taskId}(projectId=${task.project.id},taskId=${task.id})}" method="post">
                 <label class="complete-label">
                     <input type="checkbox" name="completed" class="complete-checkbox" th:checked="${task.completed}" onchange="this.form.submit()">
                     
