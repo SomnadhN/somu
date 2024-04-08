@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKER_HUB_USERNAME = 'subhikshasuresh1701'
-        DOCKER_HUB_PASSWORD = 'Love170801*'
+        DOCKER_HUB_PASSWORD = 'Love170801'
         DOCKER_IMAGE_NAME = 'pro-collab-app'
         GIT_USERNAME = 'subhisuresh17'
         GIT_PASSWORD = 'Love170801*'
