@@ -92,12 +92,12 @@ public class UserController {
             List<Note> userNotes=user.getNotesOwned();
             for(Note note:userNotes){
                 note.setNote_owner(null);
-                noteRepository.delete(note);
+                noteRepository.save(note);
             }
             List<TaskThreads> threads=taskThreadsRepository.findByUser(user);
             for(TaskThreads t:threads){
                 t.setUser(null);
-                taskThreadsRepository.delete(t);
+                taskThreadsRepository.save(t);
             }
             List<ChatMessage> chatMessages = chatMessageRepository.findBySenderOrRecipient(user, user);
             chatMessageRepository.deleteAll(chatMessages);
