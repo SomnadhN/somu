@@ -15,6 +15,7 @@ services:
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
       SPRING_JPA_HIBERNATE_DDL-AUTO: update
       SERVER_PORT: 1111
+      APPLICATION_BASE_URL: http://13.41.179.170:1111
     restart: always
 
   mysql:
