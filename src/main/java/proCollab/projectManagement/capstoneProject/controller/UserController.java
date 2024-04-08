@@ -102,7 +102,10 @@ public class UserController {
             List<ChatMessage> chatMessages = chatMessageRepository.findBySenderOrRecipient(user, user);
             chatMessageRepository.deleteAll(chatMessages);
             List<TaskHistory> taskHistories = taskHistoryRepository.findByUser(user);
-            taskHistoryRepository.deleteAll(taskHistories);
+            for(TaskHistory th:taskHistories){
+                th.setTask(null);
+                taskHistoryRepository.save(th);
+            }
 
             // Remove the user from associated projects
             List<Project> projects = user.getProjects();
