@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.tomcat.util.threads.TaskThread;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import proCollab.projectManagement.capstoneProject.model.Project;
 import proCollab.projectManagement.capstoneProject.model.Role;
 import proCollab.projectManagement.capstoneProject.model.Task;
 import proCollab.projectManagement.capstoneProject.model.TaskHistory;
+import proCollab.projectManagement.capstoneProject.model.TaskThreads;
 import proCollab.projectManagement.capstoneProject.model.Teams;
 import proCollab.projectManagement.capstoneProject.model.User;
 import proCollab.projectManagement.capstoneProject.repository.ChatMessageRepository;
@@ -25,6 +27,7 @@ import proCollab.projectManagement.capstoneProject.repository.NoteRepository;
 import proCollab.projectManagement.capstoneProject.repository.ProjectRepository;
 import proCollab.projectManagement.capstoneProject.repository.TaskHistoryRepository;
 import proCollab.projectManagement.capstoneProject.repository.TaskRepository;
+import proCollab.projectManagement.capstoneProject.repository.TaskThreadsRepository;
 import proCollab.projectManagement.capstoneProject.repository.TeamRepository;
 import proCollab.projectManagement.capstoneProject.repository.UserRepository;
 import proCollab.projectManagement.capstoneProject.service.CompanyService;
@@ -51,6 +54,9 @@ public class UserController {
 
     @Autowired
     private NoteRepository noteRepository;
+
+    @Autowired
+    private TaskThreadsRepository taskThreadsRepository;
     @Autowired
     public UserController(UserService userService, CompanyService companyService) {
         this.userService = userService;
@@ -86,7 +92,12 @@ public class UserController {
             List<Note> userNotes=user.getNotesOwned();
             for(Note note:userNotes){
                 note.setNote_owner(null);
-                noteRepository.save(note);
+                noteRepository.delete(note);
+            }
+            List<TaskThreads> threads=taskThreadsRepository.findByUser(user);
+            for(TaskThreads t:threads){
+                t.setUser(null);
+                taskThreadsRepository.delete(t);
             }
             List<ChatMessage> chatMessages = chatMessageRepository.findBySenderOrRecipient(user, user);
             chatMessageRepository.deleteAll(chatMessages);
