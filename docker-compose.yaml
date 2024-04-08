@@ -9,14 +9,14 @@ services:
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/my_database?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/MY_capstone_project1?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
       SPRING_JPA_HIBERNATE_DDL-AUTO: update
       SERVER_PORT: 1111
-      APPLICATION_BASE_URL: http://18.171.95.247:1111
+      APPLICATION_BASE_URL: http://35.177.64.228:1111
     restart: always
 
   mysql:
@@ -28,9 +28,7 @@ services:
       - mysql_data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: my_database
-      MYSQL_USER: root  # You can remove this line since root user is created by default with MYSQL_ROOT_PASSWORD
-      MYSQL_PASSWORD: root  # You can remove this line since root user is created by default with MYSQL_ROOT_PASSWORD
-
+      MYSQL_DATABASE: MY_Capstone_project1
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes' # Update to allow empty password
 volumes:
   mysql_data:
