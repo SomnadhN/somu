@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import proCollab.projectManagement.capstoneProject.model.ChatMessage;
+import proCollab.projectManagement.capstoneProject.model.Note;
 import proCollab.projectManagement.capstoneProject.model.Project;
 import proCollab.projectManagement.capstoneProject.model.Role;
 import proCollab.projectManagement.capstoneProject.model.Task;
@@ -20,6 +21,7 @@ import proCollab.projectManagement.capstoneProject.model.TaskHistory;
 import proCollab.projectManagement.capstoneProject.model.Teams;
 import proCollab.projectManagement.capstoneProject.model.User;
 import proCollab.projectManagement.capstoneProject.repository.ChatMessageRepository;
+import proCollab.projectManagement.capstoneProject.repository.NoteRepository;
 import proCollab.projectManagement.capstoneProject.repository.ProjectRepository;
 import proCollab.projectManagement.capstoneProject.repository.TaskHistoryRepository;
 import proCollab.projectManagement.capstoneProject.repository.TaskRepository;
@@ -47,6 +49,8 @@ public class UserController {
     @Autowired
     private TeamRepository teamUserRepository; // Assuming you have a repository for TeamUser entity
 
+    @Autowired
+    private NoteRepository noteRepository;
     @Autowired
     public UserController(UserService userService, CompanyService companyService) {
         this.userService = userService;
@@ -77,8 +81,13 @@ public class UserController {
             @RequestParam(name = "redirect", required = false) String redirectUrl) {
         // Fetch the user by id
         User user = userRepository.findById(id).orElse(null);
-
+        
         if (user != null) {
+            List<Note> userNotes=user.getNotesOwned();
+            for(Note note:userNotes){
+                note.setNote_owner(null);
+                noteRepository.save(note);
+            }
             List<ChatMessage> chatMessages = chatMessageRepository.findBySenderOrRecipient(user, user);
             chatMessageRepository.deleteAll(chatMessages);
             List<TaskHistory> taskHistories = taskHistoryRepository.findByUser(user);
