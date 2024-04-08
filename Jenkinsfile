@@ -3,9 +3,9 @@ pipeline {
     
     environment {
         DOCKER_HUB_USERNAME = 'subhikshasuresh1701'
-        DOCKER_HUB_PASSWORD = 'Love170801'
-        DOCKER_IMAGE_NAME = 'pro-collab-application'
-        GIT_USERNAME = 'subhisures17'
+        DOCKER_HUB_PASSWORD = 'Love170801*'
+        DOCKER_IMAGE_NAME = 'pro-collab-app'
+        GIT_USERNAME = 'subhisuresh17'
         GIT_PASSWORD = 'Love170801*'
         GIT_REPO_URL = 'https://github.com/subhisuresh17/Pro-Collab-Application-latest.git'
         GIT_CREDENTIALS_ID = 'github-token'
