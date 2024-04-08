@@ -16,10 +16,8 @@ services:
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
       SPRING_JPA_HIBERNATE_DDL-AUTO: update
       SERVER_PORT: 1111
-      APPLICATION_BASE_URL: http://35.177.64.228:1111
+      APPLICATION_BASE_URL: http://18.171.95.247:1111
     restart: always
-    networks:
-      - my_network
 
   mysql:
     image: mysql:8.0
@@ -29,14 +27,10 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Set the root password here
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: my_database
-    networks:
-      - my_network
+      MYSQL_USER: root  # You can remove this line since root user is created by default with MYSQL_ROOT_PASSWORD
+      MYSQL_PASSWORD: root  # You can remove this line since root user is created by default with MYSQL_ROOT_PASSWORD
 
 volumes:
   mysql_data:
-
-networks:
-  my_network:
-    driver: bridge
