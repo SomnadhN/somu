@@ -2,33 +2,32 @@ version: '3.8'
 
 services:
   spring-boot-app:
-    build:
-      context: .
+    build: .
     ports:
-      - "1111:1111"  # Host port : Container port
+      - "1111:1111"
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/MY_capstone_project1?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/MY_Capstone_project1?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_DATASOURCE_DRIVER-CLASS-NAME: com.mysql.cj.jdbc.Driver
       SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
       SPRING_JPA_HIBERNATE_DDL-AUTO: update
       SERVER_PORT: 1111
-      APPLICATION_BASE_URL: http://35.177.64.228:1111
     restart: always
 
   mysql:
-    image: mysql:8.0
-    container_name: mysql-container
-    ports:
-      - "3306:3306"  # Host port : Container port
-    volumes:
-      - mysql_data:/var/lib/mysql
+    image: mysql:latest
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: MY_Capstone_project1
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes' # Update to allow empty password
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
 volumes:
   mysql_data:
