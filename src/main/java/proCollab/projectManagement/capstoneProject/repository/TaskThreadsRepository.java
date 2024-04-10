@@ -6,11 +6,12 @@ import org.springframework.stereotype.Repository;
 import proCollab.projectManagement.capstoneProject.model.Task;
 import proCollab.projectManagement.capstoneProject.model.TaskThreads;
 import proCollab.projectManagement.capstoneProject.model.User;
+
 import java.util.List;
 
 @Repository
 public interface TaskThreadsRepository extends JpaRepository<TaskThreads, Long> {
     List<TaskThreads> findByTask(Task task);
 
-    List<TaskThreads> findByUser(User User);
+    List<TaskThreads> findByUser(User user);
 }
